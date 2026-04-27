@@ -1,96 +1,121 @@
 # start-vibe-coding
-A minimal, opinionated protocol for initializing new projects with both human-readable and agent-oriented documentation.
 
-This repository provides a single INIT.md file that defines how to bootstrap a project repository in a consistent, lightweight, and agent-compatible way.
+Bootstrap a new repo with documentation that works for both humans and coding agents from day one.
 
----
-
-## Why this exists
-
-When starting new projects—especially in agent-assisted workflows—you often repeat the same setup:
-
-- Creating README, logs, and structure docs
-- Explaining conventions to the agent
-- Re-establishing coding and documentation rules
-
-This protocol standardizes that process into a single file: INIT.md.
+English | [简体中文](README.zh.md)
 
 ---
 
-## Core Idea
+## What This Is
 
-Instead of manually describing your workflow every time, you:
+`start-vibe-coding` is a lightweight repository bootstrap protocol centered around a single file: `INIT.md`.
 
-1. Include INIT.md in your project
-2. Tell the agent what you want to build
-3. Let the agent initialize the repo following the protocol
+Instead of re-explaining your conventions every time you start a project, you drop in one protocol file and let the agent initialize a clean, repeatable working setup.
 
----
+The result is a repo that is:
 
-## What INIT.md Defines
-
-The protocol enforces a clear separation:
-
-### Human-facing
-- README.md → usage, setup, overview
-- PROJECT_LOG.md → evolving development history
-
-### Agent-facing
-- SPEC.md → project map
-- AGENTS.md → coding + workflow rules
-- CLAUDE.md → entry point for agent instructions
+- readable for humans
+- structured for agents
+- consistent across new projects
+- minimal without feeling under-specified
 
 ---
 
-## Usage
+## How To Use It
 
-### Step 1
-Copy INIT.md into your new repository.
+### 1. Add `INIT.md` to your new repository
 
-### Step 2
-Describe your project to the agent (e.g. in Cursor, ChatGPT, etc.).
+Copy the protocol into the root of the project you want to bootstrap.
 
-### Step 3
-Ask the agent to:
-> Initialize the project following INIT.md
+### 2. Tell the agent what you want to build
 
-The agent should:
-- Create all required files
-- Populate them according to the protocol
-- Set up a minimal working structure
+Describe the product, tool, app, script, or library in plain language.
+
+### 3. Ask the agent to initialize the repo from the protocol
+
+Example prompt:
+
+```text
+I want to start a project for a personal expense tracker web app.
+Initialize this project following INIT.md.
+Ask me any clarifying questions needed to lock down the required details before creating files.
+```
+
+The agent should then:
+
+- create the required files
+- populate them with project-specific content
+- establish a minimal working structure
+- keep the human-facing and agent-facing docs consistent
+
+---
+
+## The Problem It Solves
+
+Starting a new project usually means repeating the same setup loop:
+
+- write a `README`
+- create a project log
+- explain structure and conventions
+- restate coding rules to the agent
+- rebuild the same initialization context from scratch
+
+That repetition is small, but it compounds. `start-vibe-coding` turns it into a reusable protocol.
+
+---
+
+## Why It Works Well
+
+This protocol creates a clean split between documents for people and documents for agents.
+
+| Audience | Files | Job |
+| --- | --- | --- |
+| Humans | `README.md`, `PROJECT_LOG.md` | Explain the project, setup, usage, and progress |
+| Agents | `SPEC.md`, `AGENTS.md`, `CLAUDE.md` | Define structure, rules, and execution expectations |
+
+That separation makes collaboration smoother:
+
+- humans get a familiar project surface
+- agents get explicit operating instructions
+- both stay aligned as the repo evolves
+
+---
+
+## What `INIT.md` Creates
+
+The initialization protocol defines a compact starter set:
+
+- `README.md` for the project overview and usage
+- `PROJECT_LOG.md` for append-only development history
+- `SPEC.md` for the project map
+- `AGENTS.md` for durable coding and workflow rules
+- `CLAUDE.md` as a lightweight agent entry point
+
+It can also support multilingual docs when needed, such as `README.zh.md`.
 
 ---
 
 ## Design Principles
 
-- Minimal but sufficient
+- Minimal, but not vague
+- Strong defaults over heavy scaffolding
 - Clear separation of concerns
 - Agent-readable structure
-- Low overhead for humans
-- No unnecessary boilerplate
+- Low ongoing maintenance cost
 
 ---
 
-## Example Workflow
+## Why The Agent Files Matter
 
-1. Start a new repo
-2. Add INIT.md
-3. Tell agent:
-   > Build a lattice QCD data analysis tool using Python
-4. Agent initializes:
-   - README
-   - PROJECT_LOG
-   - SPEC / AGENTS / CLAUDE
-5. Continue development with consistent structure
+Most projects already have a `README`. Fewer have durable instructions for coding agents.
 
----
+`start-vibe-coding` treats agent-facing files as first-class project infrastructure:
 
-## Scope
+- `AGENTS.md` holds the durable working rules
+- `CLAUDE.md` stays minimal and points the agent at those rules
+- `SPEC.md` keeps the repo map easy to reload
 
-This protocol is intentionally lightweight:
-- No framework lock-in
-- No language assumptions
-- No enforced architecture
+This gives the agent a stable operating context instead of relying on repeated chat prompts.
 
 ---
 
