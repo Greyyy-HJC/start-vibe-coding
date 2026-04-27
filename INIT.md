@@ -89,6 +89,7 @@ Rules:
 Agent requirement:
 
 - after each meaningful coding iteration, check whether a log entry is warranted
+- after each vibe coding session or implementation pass, explicitly check whether `PROJECT_LOG.md` should be updated
 - append updates when the change would be useful for future context
 
 No length limit.
@@ -174,6 +175,11 @@ Turn tasks into verifiable outcomes.
 - For multi-step work, keep a short plan and verify each step.
 - Do not stop at implementation; verify the result.
 
+## Workflow Hygiene
+
+- Before each `git add` and `git commit`, check whether `.gitignore` needs to be updated.
+- After each vibe coding session or meaningful implementation pass, check whether `PROJECT_LOG.md` should be updated.
+
 ## Project-Specific Rules
 
 - Add the repository's concrete coding, testing, tooling, and documentation rules here.
@@ -223,11 +229,12 @@ Rules:
 The agent must:
 
 1. Understand the project goal and likely scope.
-2. Create the required documentation files.
-3. Populate each file with project-specific content, not generic placeholders.
-4. Create a minimal working structure only if the project description implies one.
-5. Keep human-facing and agent-facing files internally consistent.
-6. Avoid boilerplate that does not serve the project.
+2. Ask any clarifying questions needed to lock down the required details before creating files whenever the project intent, scope, or constraints are still unclear.
+3. Create the required documentation files.
+4. Populate each file with project-specific content, not generic placeholders.
+5. Create a minimal working structure only if the project description implies one.
+6. Keep human-facing and agent-facing files internally consistent.
+7. Avoid boilerplate that does not serve the project.
 
 If key product intent is unclear, ask before inventing structure.
 

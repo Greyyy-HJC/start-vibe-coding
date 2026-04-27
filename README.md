@@ -38,7 +38,6 @@ Example prompt:
 ```text
 I want to start a project for a personal expense tracker web app.
 Initialize this project following INIT.md.
-Ask me any clarifying questions needed to lock down the required details before creating files.
 ```
 
 The agent should then:
