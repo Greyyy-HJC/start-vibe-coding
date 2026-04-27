@@ -1,4 +1,4 @@
-# vibe_init
+# start-vibe-coding
 A minimal, opinionated protocol for initializing new projects with both human-readable and agent-oriented documentation.
 
 This repository provides a single INIT.md file that defines how to bootstrap a project repository in a consistent, lightweight, and agent-compatible way.
