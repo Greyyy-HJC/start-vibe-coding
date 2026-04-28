@@ -8,6 +8,7 @@ Agents should use this protocol to create a clean starting point with:
 
 - human-facing documentation
 - agent-facing operating context
+- repo defaults that are ready to use immediately
 - minimal but durable project structure
 
 The goal is not to generate a full architecture. The goal is to establish a repo that is easy to understand, easy to extend, and easy for both humans and agents to work in.
@@ -29,15 +30,34 @@ During initialization, the agent must create the following files.
 - `AGENTS.md`
 - `CLAUDE.md`
 
+### Repo defaults
+
+- `.gitignore`
+- `requirements.txt`
+- `LICENSE`
+
 ---
 
-## 2. Optional Files
+## 2. Required Local Setup
+
+During initialization, the agent must also establish the default local environment baseline.
+
+- create a repository-root `.venv`
+- treat `.venv` as the default Python environment for setup, installs, and commands
+- make sure `.venv` is ignored by git
+- keep docs and agent instructions consistent with that environment choice
+
+If the user explicitly chooses another stack or environment workflow, adapt as needed, but do not silently fall back to global Python state.
+
+---
+
+## 3. Optional Files
 
 Create these only when they are relevant to the project.
 
 - `README.zh.md` or other translated README files
-- dependency manifests such as `requirements.txt`, `package.json`, or `pyproject.toml`
-- environment setup files
+- additional dependency manifests such as `package.json` or `pyproject.toml` when the project explicitly calls for them
+- extra environment setup files
 - `src/`, `app/`, or equivalent code directories
 - `tests/`
 
@@ -45,7 +65,7 @@ Do not add optional files just because they are common. Add them only when they 
 
 ---
 
-## 3. File Definitions
+## 4. File Definitions
 
 ### `README.md`
 
@@ -71,6 +91,47 @@ If multilingual support is needed:
 - add `README.zh.md` or other language files as peers
 - add language switch links near the top of each README
 - keep structure aligned across languages
+
+---
+
+### `.gitignore`
+
+Purpose: Keep local environments, agent state, and generated files out of version control.
+
+Must include at minimum:
+
+- `.venv/`
+- `.codex/`
+- `__pycache__/`
+- `.DS_Store`
+
+Add other tool-specific local artifacts when the initialized stack implies them.
+
+---
+
+### `requirements.txt`
+
+Purpose: Default dependency manifest for the repository.
+
+Rules:
+
+- create it during initialization unless the user explicitly chose a different dependency workflow
+- keep it focused on direct project dependencies
+- keep it present even when the project starts small
+
+If the project later adopts another package manager, the repo may add or migrate manifests, but the initial default should still be explicit.
+
+---
+
+### `LICENSE`
+
+Purpose: Make the repository's licensing explicit from day one.
+
+Rules:
+
+- create a concrete license file during initialization
+- default to MIT unless the user specifies another license
+- keep the license statement in `README.md` consistent with the file
 
 ---
 
@@ -182,6 +243,8 @@ Turn tasks into verifiable outcomes.
 
 ## Project-Specific Rules
 
+- Use the repository-root `.venv` as the default Python environment.
+- When installing Python dependencies, keep `requirements.txt` aligned with the environment.
 - Add the repository's concrete coding, testing, tooling, and documentation rules here.
 - Keep this section specific to the project being initialized.
 
@@ -224,33 +287,35 @@ Rules:
 
 ---
 
-## 4. Initialization Procedure
+## 5. Initialization Procedure
 
 The agent must:
 
 1. Understand the project goal and likely scope.
 2. Ask any clarifying questions needed to lock down the required details before creating files whenever the project intent, scope, or constraints are still unclear.
 3. Create the required documentation files.
-4. Populate each file with project-specific content, not generic placeholders.
-5. Create a minimal working structure only if the project description implies one.
-6. Keep human-facing and agent-facing files internally consistent.
-7. Avoid boilerplate that does not serve the project.
+4. Create the default repo baseline: `.gitignore`, `requirements.txt`, `LICENSE`, and a repository-root `.venv`.
+5. Populate each file with project-specific content, not generic placeholders.
+6. Create a minimal working structure only if the project description implies one.
+7. Keep human-facing and agent-facing files internally consistent.
+8. Avoid boilerplate that does not serve the project.
 
 If key product intent is unclear, ask before inventing structure.
 
 ---
 
-## 5. Working Principles
+## 6. Working Principles
 
 - Human-facing docs should optimize for clarity.
 - Agent-facing docs should optimize for execution accuracy.
 - Prefer strong defaults over heavy scaffolding.
 - Prefer maintainability over completeness.
+- Prefer a repo-local environment setup over global tooling state.
 - Keep the repository easy to reload into context.
 
 ---
 
-## 6. Non-Goals
+## 7. Non-Goals
 
 - No over-engineering
 - No speculative architecture
@@ -270,5 +335,6 @@ Use it to establish:
 - a durable log of project evolution
 - a structural project map
 - stable rules for coding agents
+- a usable local environment baseline from the start
 
 Initialize only what the project needs, but make the resulting repo coherent enough that both humans and agents can work effectively from the first iteration.

@@ -1,29 +1,45 @@
 # start-vibe-coding
 
-Bootstrap a new repo with documentation that works for both humans and coding agents from day one.
+<p align="center">
+  <img src="assets/svp.png" alt="start-vibe-coding logo" width="720">
+</p>
+
+Drop `INIT.md` into a fresh repo, tell your agent what you want to build, and let it start vibe coding with real project context from the first pass.
 
 English | [简体中文](README.zh.md)
 
 ---
 
+## Why This Exists
+
+Starting a project with an agent usually means repeating the same setup loop:
+
+- write the first `README`
+- explain the project structure
+- define coding rules
+- add environment setup notes
+- restate the same context every time the repo is new
+
+`start-vibe-coding` turns that repetition into a reusable protocol. One file gives the agent enough durable context to create a clean project surface instead of waiting for more prompt-by-prompt instruction.
+
+---
+
 ## What This Is
 
-`start-vibe-coding` is a lightweight repository bootstrap protocol centered around a single file: `INIT.md`.
+`start-vibe-coding` is a lightweight repository bootstrap protocol centered around `INIT.md`.
 
-Instead of re-explaining your conventions every time you start a project, you drop in one protocol file and let the agent initialize a clean, repeatable working setup.
+It helps an agent initialize a new repository with:
 
-The result is a repo that is:
-
-- readable for humans
-- structured for agents
-- consistent across new projects
-- minimal without feeling under-specified
+- human-facing docs
+- agent-facing operating rules
+- sensible repo defaults
+- a minimal working structure that matches the project you described
 
 ---
 
 ## How To Use It
 
-### 1. Add `INIT.md` to your new repository
+### 1. Drop `INIT.md` into your new repository
 
 Copy the protocol into the root of the project you want to bootstrap.
 
@@ -36,30 +52,34 @@ Describe the product, tool, app, script, or library in plain language.
 Example prompt:
 
 ```text
-I want to start a project for a personal expense tracker web app.
+I want to build a personal expense tracker web app.
 Initialize this project following INIT.md.
 ```
 
-The agent should then:
+From there, the agent should be able to:
 
 - create the required files
 - populate them with project-specific content
+- set up the default local environment baseline
 - establish a minimal working structure
 - keep the human-facing and agent-facing docs consistent
 
 ---
 
-## The Problem It Solves
+## What `INIT.md` Creates
 
-Starting a new project usually means repeating the same setup loop:
+The protocol defines a compact starter set:
 
-- write a `README`
-- create a project log
-- explain structure and conventions
-- restate coding rules to the agent
-- rebuild the same initialization context from scratch
+- `README.md` for the project overview and usage
+- `PROJECT_LOG.md` for append-only development history
+- `SPEC.md` for the project map
+- `AGENTS.md` for durable coding and workflow rules
+- `CLAUDE.md` as a lightweight agent entry point
+- `.gitignore` for local and generated files that should stay untracked
+- `requirements.txt` as the default dependency manifest
+- `LICENSE` for explicit licensing from day one
 
-That repetition is small, but it compounds. `start-vibe-coding` turns it into a reusable protocol.
+By default, the protocol also expects a repository-root `.venv` so Python tooling, dependency installation, and agent instructions all point at the same local environment.
 
 ---
 
@@ -80,30 +100,6 @@ That separation makes collaboration smoother:
 
 ---
 
-## What `INIT.md` Creates
-
-The initialization protocol defines a compact starter set:
-
-- `README.md` for the project overview and usage
-- `PROJECT_LOG.md` for append-only development history
-- `SPEC.md` for the project map
-- `AGENTS.md` for durable coding and workflow rules
-- `CLAUDE.md` as a lightweight agent entry point
-
-It can also support multilingual docs when needed, such as `README.zh.md`.
-
----
-
-## Design Principles
-
-- Minimal, but not vague
-- Strong defaults over heavy scaffolding
-- Clear separation of concerns
-- Agent-readable structure
-- Low ongoing maintenance cost
-
----
-
 ## Why The Agent Files Matter
 
 Most projects already have a `README`. Fewer have durable instructions for coding agents.
@@ -116,8 +112,10 @@ Most projects already have a `README`. Fewer have durable instructions for codin
 
 This gives the agent a stable operating context instead of relying on repeated chat prompts.
 
+If needed, the same protocol can support multilingual docs such as `README.zh.md`.
+
 ---
 
 ## License
 
-MIT License
+[MIT License](LICENSE)

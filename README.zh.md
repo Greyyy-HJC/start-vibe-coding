@@ -1,23 +1,39 @@
 # start-vibe-coding
 
-用一套同时面向人类与编码智能体的文档协议，从第一天开始把新仓库搭好。
+<p align="center">
+  <img src="assets/start-vibe-coding-logo.svg" alt="start-vibe-coding logo" width="720">
+</p>
+
+把 `INIT.md` 丢进一个新仓库，告诉智能体你要做什么，它就能从第一轮开始带着真实项目上下文自己 vibe coding 起来。
 
 [English](README.md) | 简体中文
 
 ---
 
+## 为什么要有这个
+
+和智能体一起开新项目时，通常总会重复做同一套事：
+
+- 写第一版 `README`
+- 解释项目结构
+- 定义编码规则
+- 补环境准备说明
+- 每次新仓库都重新讲一遍上下文
+
+`start-vibe-coding` 的作用，就是把这些重复动作沉淀成一份可复用协议。靠一个文件，就让智能体拥有足够稳定的上下文来把项目骨架搭起来，而不是靠一轮轮聊天补说明。
+
+---
+
 ## 这是什么
 
-`start-vibe-coding` 是一个轻量的仓库初始化协议，核心围绕一个文件：`INIT.md`。
+`start-vibe-coding` 是一个轻量的仓库初始化协议，核心围绕 `INIT.md`。
 
-你不需要每次开新项目都重复解释约定、结构和协作方式，只要把这个协议文件放进仓库，再让智能体按协议初始化即可。
+它帮助智能体在新仓库里一次性建立：
 
-最终得到的仓库会同时具备这些特点：
-
-- 对人类可读
-- 对智能体友好
-- 不同项目之间保持一致
-- 足够精简，但不至于信息不足
+- 面向人的文档
+- 面向智能体的长期工作规则
+- 合理的仓库默认配置
+- 与项目目标匹配的最小可用结构
 
 ---
 
@@ -36,30 +52,34 @@
 示例提示词：
 
 ```text
-I want to start a project for a personal expense tracker web app.
+I want to build a personal expense tracker web app.
 Initialize this project following INIT.md.
 ```
 
-接下来智能体应该：
+接下来智能体就应该能够：
 
 - 创建要求的文件
 - 按项目目标填充内容
+- 建好默认的本地环境基础设施
 - 建立最小可用结构
 - 保持面向人类与面向智能体的文档一致
 
 ---
 
-## 它解决了什么问题
+## `INIT.md` 会创建什么
 
-新项目开始时，大家常常会重复做同一套准备工作：
+这份协议会定义一套紧凑但完整的起步文件：
 
-- 写 `README`
-- 建项目日志
-- 说明目录结构和约定
-- 给智能体重申编码规则
-- 从零重建一遍初始化上下文
+- `README.md` 用于项目概览和使用说明
+- `PROJECT_LOG.md` 用于追加式开发记录
+- `SPEC.md` 用于项目地图
+- `AGENTS.md` 用于长期有效的编码与协作规则
+- `CLAUDE.md` 作为轻量级智能体入口
+- `.gitignore` 用于忽略本地和生成文件
+- `requirements.txt` 作为默认依赖清单
+- `LICENSE` 用于从第一天起明确许可协议
 
-每次看起来都不大，但累积起来很浪费。`start-vibe-coding` 的目标，就是把这些重复动作沉淀成一份可复用协议。
+默认情况下，协议还会约定在仓库根目录使用 `.venv`，这样 Python 工具链、依赖安装和智能体工作规则都能对齐到同一个本地环境。
 
 ---
 
@@ -80,30 +100,6 @@ Initialize this project following INIT.md.
 
 ---
 
-## `INIT.md` 会定义什么
-
-初始化协议会生成一套紧凑但完整的起步文件：
-
-- `README.md` 用于项目概览和使用说明
-- `PROJECT_LOG.md` 用于追加式开发记录
-- `SPEC.md` 用于项目地图
-- `AGENTS.md` 用于长期有效的编码与协作规则
-- `CLAUDE.md` 作为轻量级智能体入口
-
-如果项目有需要，也可以支持多语言文档，比如 `README.zh.md`。
-
----
-
-## 设计原则
-
-- 精简，但不含糊
-- 用强默认值代替厚重脚手架
-- 明确分离不同文档职责
-- 让智能体容易读取和复用上下文
-- 降低后续维护成本
-
----
-
 ## 为什么智能体文件很重要
 
 大多数项目都有 `README`，但很少项目会把给编码智能体的长期规则也当成基础设施来维护。
@@ -116,8 +112,10 @@ Initialize this project following INIT.md.
 
 这样，智能体依赖的是稳定的项目上下文，而不是每次都靠聊天重新解释一遍。
 
+如果项目有需要，也可以支持多语言文档，比如 `README.zh.md`。
+
 ---
 
 ## License
 
-MIT License
+[MIT License](LICENSE)
