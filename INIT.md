@@ -15,9 +15,9 @@ The goal is not to generate a full architecture. The goal is to establish a repo
 
 ---
 
-## 1. Required Files
+## 1. Required Files and Directories
 
-During initialization, the agent must create the following files.
+During initialization, the agent must create the following files and directory.
 
 ### Human-facing
 
@@ -28,7 +28,10 @@ During initialization, the agent must create the following files.
 
 - `SPEC.md`
 - `AGENTS.md`
-- `CLAUDE.md`
+
+### Required directory
+
+- `presentation/`
 
 ### Repo defaults
 
@@ -103,6 +106,7 @@ Must include at minimum:
 - `.venv/`
 - `.codex/`
 - `__pycache__/`
+- `.ipynb_checkpoints/`
 - `.DS_Store`
 
 Add other tool-specific local artifacts when the initialized stack implies them.
@@ -137,7 +141,7 @@ Rules:
 
 ### `PROJECT_LOG.md`
 
-Purpose: Append-only development history.
+Purpose: Append-only development history, and a shared coordination log when more than one agent is working.
 
 Rules:
 
@@ -146,12 +150,19 @@ Rules:
 - record design decisions
 - record experiments
 - record non-trivial fixes
+- when multiple agents work together, including a parent agent and its child agents, use the log to branch tasks and aggregate results
+  - record the split: what each branch of work is, and which agent owns it
+  - each agent appends the outcome of its own branch
+  - when the branches come back together, aggregate those outcomes into one record
+
+`SPEC.md` must state this coordination role clearly.
 
 Agent requirement:
 
 - after each meaningful coding iteration, check whether a log entry is warranted
 - after each vibe coding session or implementation pass, explicitly check whether `PROJECT_LOG.md` should be updated
 - append updates when the change would be useful for future context
+- append a branch or an aggregation entry when work is split across agents or folded back together
 
 No length limit.
 
@@ -167,6 +178,8 @@ Must include:
 - key modules and responsibilities
 - core entry points
 - locations of important logic
+- what `presentation/` is for
+- how `PROJECT_LOG.md` supports multi-agent work
 
 Constraints:
 
@@ -174,13 +187,27 @@ Constraints:
 - keep it structural
 - avoid low-level implementation detail
 
+State the following two points clearly. The wording can be adapted to the project, but the meaning must stay intact:
+
+```md
+## presentation/
+
+`presentation/` holds Jupyter notebooks (`.ipynb`) or HTML files. Agents write results here to report them to humans.
+
+## PROJECT_LOG.md
+
+`PROJECT_LOG.md` is the append-only development history. It is also how multiple agents, including parent and child agents, coordinate: branch a task into separate pieces of work, and aggregate the results back into one log.
+```
+
 ---
 
 ### `AGENTS.md`
 
 Purpose: Durable coding and workflow rules for agents working in the repository.
 
-This should be the main long-lived instruction file. It should contain both local project rules and general execution behavior.
+This is the only long-lived agent instruction file. Agents, including Claude, read `AGENTS.md` directly. Do not add a separate `CLAUDE.md`.
+
+It should contain both local project rules and general execution behavior.
 
 Must include:
 
@@ -252,6 +279,8 @@ Turn tasks into verifiable outcomes.
 
 - Keep `SPEC.md` aligned with structure changes.
 - Update `PROJECT_LOG.md` when a meaningful change is made.
+- When multiple agents or parent and child agents split work, record the task branches and the aggregated results in `PROJECT_LOG.md`.
+- Put human-facing result reports in `presentation/` as Jupyter notebooks or HTML files.
 - Keep README files aligned across supported languages when multilingual docs exist.
 ```
 
@@ -259,31 +288,19 @@ The preset above may be adapted to the project, but those four behavioral sectio
 
 ---
 
-### `CLAUDE.md`
+### `presentation/`
 
-Purpose: Lightweight entry point for agent instructions.
-
-`CLAUDE.md` should not duplicate the full operating rules if `AGENTS.md` already contains them. Its job is to direct the agent to the durable rules and add only minimal agent-entry context.
-
-Initialize it with a structure like:
-
-```md
-# CLAUDE.md
-
-Start here when working in this repository.
-
-Read `AGENTS.md` first and follow it as the primary source of coding and workflow rules.
-
-Use `SPEC.md` for the project map.
-Use `PROJECT_LOG.md` for recent development history when relevant.
-```
+Purpose: A directory for agent-to-human result reports.
 
 Rules:
 
-- reference `AGENTS.md`
-- stay consistent with `AGENTS.md`
-- keep it minimal
-- avoid duplicating long rule blocks unless the environment requires it
+- create it during initialization
+- store Jupyter notebooks (`.ipynb`) or HTML files here
+- agents use these files to report results to humans
+- keep source code and operating docs out of this directory
+- if the directory starts empty, add `.gitkeep` so it stays in version control
+
+`SPEC.md` must state this purpose clearly.
 
 ---
 
@@ -293,7 +310,7 @@ The agent must:
 
 1. Understand the project goal and likely scope.
 2. Ask any clarifying questions needed to lock down the required details before creating files whenever the project intent, scope, or constraints are still unclear.
-3. Create the required documentation files.
+3. Create the required documentation files and the `presentation/` directory.
 4. Create the default repo baseline: `.gitignore`, `requirements.txt`, `LICENSE`, and a repository-root `.venv`.
 5. Populate each file with project-specific content, not generic placeholders.
 6. Create a minimal working structure only if the project description implies one.
@@ -332,9 +349,10 @@ If key product intent is unclear, ask before inventing structure.
 Use it to establish:
 
 - a clear `README`
-- a durable log of project evolution
+- a durable log of project evolution, including task branches and aggregated results when several agents work together
 - a structural project map
-- stable rules for coding agents
+- a `presentation/` directory where agents report results to humans
+- stable rules for coding agents in `AGENTS.md`
 - a usable local environment baseline from the start
 
 Initialize only what the project needs, but make the resulting repo coherent enough that both humans and agents can work effectively from the first iteration.
